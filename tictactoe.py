@@ -1,62 +1,70 @@
 import random
 
-print('Welcome to Tic Tac Toe !!!')
+def drawboard(board):
 
-print '\n'
+	print('   |   |')
+	print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+	print('   |   |')
 
-board = [' '] * 10 
+	print('-----------')
 
-print('   |   |')
-print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
-print('   |   |')
+	print('   |   |')
+	print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+	print('   |   |')
 
-print('-----------')
+	print('-----------')
 
-print('   |   |')
-print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
-print('   |   |')
+	print('   |   |')
+	print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+	print('   |   |')
 
-print('-----------')
-
-print('   |   |')
-print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
-print('   |   |')
-
-print '\n'
-
-letter = ''
-print("Do you want to be 'X' or 'O' ??")
-
-while not (letter == 'X' or letter == 'O'):
+	print '\n'
 	
-	letter = input()
+def inputLetter():
 
-	if letter == 'X':
+	letter = ''
+	print("Do you want to be 'X' or 'O' ??")
 
-		playerLetter = 'X'
-		computerLetter = 'O'
-	
-	elif letter == 'O':
+	while not (letter == 'X' or letter == 'O'):
+		
+		letter = input()
 
-		playerLetter = 'O'
-		computerLetter = 'X'
+		if letter == 'X':
+
+			return ['X', 'O']
+		
+		elif letter == 'O':
+
+			return ['O', 'X']
+
+		else:
+
+			print 'Please check the character entered !!'
+			print "Do you want to be 'X' or 'O' ??"
+
+
+
+def toss():
+
+	if random.randint(0, 1) == 0:
+
+		return 'computer'
 
 	else:
 
-		print 'Please check the character entered !!'
-		print "Do you want to be 'X' or 'O' ??"
+		return 'player'
 
+
+print('\n Welcome to Tic Tac Toe !!! \n')
+
+board = [' '] * 10 
+drawboard(board)
+
+playerLetter, computerLetter = inputLetter()
 print 'You are ' + playerLetter + '\n'
 print 'Computer is ' + computerLetter + '\n'
 
-toss = random.randint(0, 1)
 
-if toss == 0:
-
-	turn = 'computer'
-
-else:
-
-	turn = 'player'
+turn = toss()
 
 print 'The ' + turn + ' will go first.\n'
