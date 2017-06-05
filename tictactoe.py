@@ -1,6 +1,6 @@
 import random
 
-def drawboard(board):
+def drawBoard(board):
 
 	print('   |   |')
 	print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
@@ -19,6 +19,7 @@ def drawboard(board):
 	print('   |   |')
 
 	print '\n'
+	
 	
 def inputLetter():
 
@@ -55,16 +56,48 @@ def toss():
 		return 'player'
 
 
+def getPlayerMove(board):
+
+	move = ' '
+
+	while move not in '1 2 3 4 5 6 7 8 9'.split():
+
+		print('What is your next move? (1-9)')
+		move = str(input())
+
+	return int(move)
+
+
+def makeMove(board, letter, move):
+
+	board[move] = letter
+
+
+
 print('\n Welcome to Tic Tac Toe !!! \n')
 
 board = [' '] * 10 
-drawboard(board)
+#drawboard(board)
 
 playerLetter, computerLetter = inputLetter()
-print 'You are ' + playerLetter + '\n'
-print 'Computer is ' + computerLetter + '\n'
+#print 'You are ' + playerLetter + '\n'
+#print 'Computer is ' + computerLetter + '\n'
 
 
 turn = toss()
 
 print 'The ' + turn + ' will go first.\n'
+
+while True:
+
+	if turn == 'player':
+
+		drawBoard(board)
+		move = getPlayerMove(board)
+		makeMove(board, playerLetter, move)
+		turn = 'computer'
+
+	else:
+
+		drawBoard(board)
+		turn = 'player'
