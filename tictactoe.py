@@ -54,7 +54,7 @@ def toss():
 	else:
 
 		return 'player'
-		
+
 
 def isSpaceFree(board, move):
 
@@ -69,6 +69,7 @@ def getPlayerMove(board):
 
 		print('What is your next move? (1-9)')
 		move = str(input())
+		#print move
 
 	return int(move)
 
@@ -76,6 +77,36 @@ def getPlayerMove(board):
 def makeMove(board, letter, move):
 
 	board[move] = letter
+
+
+def isWinner(board, letter):
+
+	return ((board[1] == letter and board[2] == letter and board[3] == letter) or
+
+	(board[4] == letter and board[5] == letter and board[6] == letter) or
+
+	(board[7] == letter and board[8] == letter and board[9] == letter) or
+
+	(board[1] == letter and board[4] == letter and board[7] == letter) or
+
+	(board[2] == letter and board[5] == letter and board[8] == letter) or
+
+	(board[3] == letter and board[6] == letter and board[9] == letter) or
+
+	(board[3] == letter and board[5] == letter and board[7] == letter) or
+
+	(board[2] == letter and board[5] == letter and board[9] == letter))
+
+
+def isBoardFull(board):
+
+	for i in range(1, 10):
+
+		if isSpaceFree(board, i):
+
+			return False
+
+	return True
 
 
 
@@ -93,16 +124,37 @@ turn = toss()
 
 print 'The ' + turn + ' will go first.\n'
 
+isPlaying = True
+
 while True:
 
-	if turn == 'player':
+	while isPlaying:
 
-		drawBoard(board)
-		move = getPlayerMove(board)
-		makeMove(board, playerLetter, move)
-		turn = 'computer'
+		if turn == 'player':
 
-	else:
+			drawBoard(board)
+			move = getPlayerMove(board)
+			makeMove(board, playerLetter, move)
 
-		drawBoard(board)
-		turn = 'player'
+			if isWinner(board, playerLetter):
+
+				drawBoard(board)
+				print('Hooray! You have won the game!')
+				isPlaying = False
+
+			else:
+
+				if isBoardFull(board):
+
+					drawBoard(board)
+					print('The game is a tie!')
+					break
+
+				else:
+
+					turn = 'computer'
+
+		else:
+
+			drawBoard(board)
+			turn = 'player'
