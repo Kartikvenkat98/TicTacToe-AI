@@ -95,7 +95,7 @@ def isWinner(board, letter):
 
 	(board[3] == letter and board[5] == letter and board[7] == letter) or
 
-	(board[2] == letter and board[5] == letter and board[9] == letter))
+	(board[1] == letter and board[5] == letter and board[9] == letter))
 
 
 def isBoardFull(board):
@@ -109,10 +109,101 @@ def isBoardFull(board):
 	return True
 
 
+def getDuplicate(board):
+
+	duplicate = []
+
+	for i in board:
+
+		duplicate.append(i)
+
+	return duplicate
+
+
+
+def choose(board, list):
+
+	moves = []
+
+	for i in list:
+
+		if isSpaceFree(board, i):
+
+			#print i
+			moves.append(i)
+
+
+
+	if len(moves) != 0:
+		return random.choice(moves)
+
+	else:
+
+		return None
+
+
+
+def getComputerMove(board, computerLetter):
+
+
+	if computerLetter == 'X':
+
+		playerLetter = 'O'
+
+	else:
+
+		playerLetter = 'X'
+
+	#print playerLetter
+
+
+	for i in range(1, 10):
+
+		copy = getDuplicate(board)
+
+		if isSpaceFree(copy, i):
+
+			makeMove(copy, computerLetter, i)
+
+			if isWinner(copy, computerLetter):
+
+				#print i
+				return i
+
+
+	for i in range(1, 10):
+
+		copy = getDuplicate(board)
+
+		if isSpaceFree(copy, i):
+
+			makeMove(copy, playerLetter, i)
+
+			if isWinner(copy, playerLetter):
+
+				#print i
+				return i
+
+
+	move = choose(board, [1, 3, 7, 9])
+
+	if move != None:
+
+		return move
+
+
+	if isSpaceFree(board, 5):
+
+		return 5
+
+	return choose(board, [2, 4, 6, 8])
+
+
+
 
 print('\n Welcome to Tic Tac Toe !!! \n')
 
-board = [' '] * 10 
+board = [' '] * 10
 #drawboard(board)
 
 playerLetter, computerLetter = inputLetter()
@@ -148,7 +239,7 @@ while True:
 
 					drawBoard(board)
 					print('The game is a tie!')
-					break
+					isPlaying = False
 
 				else:
 
@@ -156,5 +247,24 @@ while True:
 
 		else:
 
-			drawBoard(board)
-			turn = 'player'
+			move = getComputerMove(board, computerLetter)
+			makeMove(board, computerLetter, move)
+
+
+			if isWinner(board, computerLetter):
+
+				drawBoard(board)
+				print('You lose! Better luck next time.')
+				isPlaying = False
+
+			else:
+
+				if isBoardFull(board):
+
+					drawBoard(board)
+					print('The game is a tie!')
+					isPlaying = False
+
+				else:
+
+					turn = 'player'
