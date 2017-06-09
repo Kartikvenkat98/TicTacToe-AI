@@ -199,25 +199,31 @@ def getComputerMove(board, computerLetter):
 	return choose(board, [2, 4, 6, 8])
 
 
+def playAgain():
+
+	print("Do you want to play again? ('yes' or 'no')")
+	return input().lower().startswith('y')
+
+
 
 
 print('\n Welcome to Tic Tac Toe !!! \n')
 
-board = [' '] * 10
-#drawboard(board)
-
-playerLetter, computerLetter = inputLetter()
-#print 'You are ' + playerLetter + '\n'
-#print 'Computer is ' + computerLetter + '\n'
-
-
-turn = toss()
-
-print 'The ' + turn + ' will go first.\n'
-
-isPlaying = True
-
 while True:
+
+	board = [' '] * 10
+	#drawboard(board)
+
+	playerLetter, computerLetter = inputLetter()
+	#print 'You are ' + playerLetter + '\n'
+	#print 'Computer is ' + computerLetter + '\n'
+
+	turn = toss()
+
+	print 'The ' + turn + ' will go first.\n'
+
+	isPlaying = True
+
 
 	while isPlaying:
 
@@ -268,3 +274,8 @@ while True:
 				else:
 
 					turn = 'player'
+
+
+	if not playAgain():
+
+		break
